@@ -46,7 +46,7 @@ def req():
     response={"Allow":True}
     if search(r'/(exec)$', res["RequestUri"]) != None:
         dd=json.loads(base64.b64decode(res["RequestBody"]))
-        if match(r'^titus$', dd["User"])!=None:
+        if match(r'^titus$|^elly$', dd["User"])!=None:
             response={"Allow":True}
         else:
             response={"Allow":False, "Msg":"You are not authorized to Run Execute command"}
