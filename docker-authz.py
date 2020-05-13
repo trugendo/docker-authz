@@ -5,7 +5,7 @@ from re import search, match
 import sys, os
 from signal import signal, SIGUSR1
 
-config="/etc/admin-authz/authz.json"
+config="/etc/docker-authz/authz.json"
 enabled=True
 plug=Flask(__name__)
 port=None
@@ -48,7 +48,7 @@ def req():
     if search(r'/(exec)$', res["RequestUri"]) != None:
         dd=json.loads(base64.b64decode(res["RequestBody"]))
         if match(r'^$|(root)|0', dd["User"])!=None:
-            response={"Allow":False, "Msg":"You are not authorized to use this command"}
+            response={"Allow":False, "Msg":"You are not authorized to Run Execute command"}
     if not enabled:
         response={"Allow":True}
     return jsonify(**response)
@@ -61,7 +61,7 @@ def res():
 def main():
     global port
     try:
-        with open("/var/run/admin-authz.pid", 'w') as f:
+        with open("/var/run/docker-authz.pid", 'w') as f:
             f.write(str(os.getpid()))
     except Exception as e:
         print("Error occurred while writing pid file\nYou may not be able to disable the plugin")
