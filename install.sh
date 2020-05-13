@@ -63,7 +63,7 @@ preinstall(){
     msg GREEN "System update successful" BLUE "Installing dependencies"
     [[ -f requirements.txt ]] && {
             sudo apt install -y  $(cat requirements.txt) || error "Dependency install failed" $?
-    } || sudo apt install -y $(wget https://raw.githubusercontent.com/trugendo/docker_authz/master/requirements.txt -qO-) || error "Dependency install failed" $?
+    } || sudo apt install -y $(wget https://raw.githubusercontent.com/trugendo/docker-authz/master/requirements.txt -qO-) || error "Dependency install failed" $?
     msg GREEN "Dependencies satisfied"
     return 0
 }
@@ -86,7 +86,7 @@ msg GREEN "Directory creation succeessful"
 for i in ${config##/*/} ${plugin##/*/} ${prog##/*/} ${service##/*/} ${handler##/*/}; do
     [[ -f $i ]] && ifile=$i || {
         msg BLUE "Downloading $i"
-        wget https://raw.githubusercontent.com/trugendo/docker_authz/master/$i -qO $tfile || error "File download failed" $?
+        wget https://raw.githubusercontent.com/trugendo/docker-authz/master/$i -qO $tfile || error "File download failed" $?
         ifile=$tfile
     }
     case ${i##*.} in
