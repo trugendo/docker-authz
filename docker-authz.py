@@ -66,7 +66,7 @@ def main():
         with open("/var/run/docker-authz.pid", 'w') as f:
             f.write(str(os.getpid()))
     except Exception as e:
-        print("Error occurred while writing pid file\nYou may not be able to disable the plugin")
+        print("Error occurred while writing pid file!!")
         print(e)
     try:
         plug.run(port=(port if port!=None else 6000))
