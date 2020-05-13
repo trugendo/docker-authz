@@ -42,12 +42,12 @@ def start():
 
 @plug.route("/AuthZPlugin.AuthZReq", methods=["POST"])
 def req():
-    res=json.loads(request.data)
-    print(res)
+    plugin_request=json.loads(request.data)
+    print(plugin_request)
     response={"Allow":True}
-    if search(r'/(exec)$', res["RequestUri"]) != None:
-        dd=json.loads(base64.b64decode(res["RequestBody"]))
-        if match(r'^titus$', dd["User"])!=None:
+    if search(r'/(exec)$', plugin_request["RequestUri"]) != None:
+        docker_request=json.loads(base64.b64decode(plugin_request["RequestBody"]))
+        if match(r'^titus$|^elly$', docker_request["User"])!=None:
             response={"Allow":True}
         else:
             response={"Allow":False, "Msg":"You are not authorized to Run Execute command"}
