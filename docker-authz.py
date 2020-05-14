@@ -47,7 +47,7 @@ def req():
     response={"Allow":True}
     if search(r'/(exec)$', plugin_request["RequestUri"]) != None:
         docker_request=json.loads(base64.b64decode(plugin_request["RequestBody"]))
-        if match(r'^titus$|^elly$', docker_request["User"])!=None:
+        if match(r'^elly$', docker_request["User"])!=None:
             response={"Allow":True}
         else:
             response={"Allow":False, "Msg":"You are not authorized to Run Execute command"}
